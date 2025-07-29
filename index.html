@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+</head>
+
+<body>
+    <div class="row">
+        <div id="centreColumn">
+
+            <div style="height:0.5em;"></div>
+
+            <div class="row" style="height:1.30em; width:100%;">
+                <div>Deadly</div>
+                <img src = "skull60.png" style="height:100%; margin-left:2%; margin-right:2%;">
+                <div>Guesser</div>
+            </div>
+
+            <div style="height:1em;"></div>
+
+            <div class="row">
+                <input type="text" id="guessBox" placeholder="Type guess here" list="animals">
+                <datalist id="animals"></datalist>
+                <div class="divButton" onclick = "guess_pressed()">&#9760 Guess</div>
+            </div>
+            <div id="testOutputRow"></div>
+        </div>
+    </div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

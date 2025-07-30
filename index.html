@@ -2,30 +2,55 @@
 <html>
 
 <head>
+    <title>Deadly 60 Guesser</title>
     <link rel="stylesheet" href="stylesheet.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" type="image/x-icon" href="skull60.png">
 </head>
 
 <body>
     <div class="row">
         <div id="centreColumn">
 
-            <div style="height:0.5em;"></div>
+            <div style="height:15px;"></div>
 
-            <div class="row" style="height:1.30em; width:100%;">
-                <div>Deadly</div>
-                <img src = "skull60.png" style="height:100%; margin-left:2%; margin-right:2%;">
-                <div>Guesser</div>
+            <div class="column" style="align-self:center; align-items: center;">
+                <div class="row thickOutline" style="height:1.30em; font-size: 35px;">
+                    <div>Deadly</div>
+                    <img src = "skull60.png" style="height:100%; margin-left:2%; margin-right:2%;">
+                    <div>Guesser</div>
+                </div>
+
+                <div style="height:10px;"></div>
+
+                <div style="background-color: black; width:110%; height:2px;"></div>
             </div>
 
-            <div style="height:1em;"></div>
+            <div style="height:15px;"></div>
 
-            <div class="row">
+            <div class="row" id="guessRow">
                 <input type="text" id="guessBox" placeholder="Type guess here" list="animals">
                 <datalist id="animals"></datalist>
-                <div class="divButton" onclick = "guess_pressed()">&#9760 Guess</div>
+                <div class="divButton" onclick = "guess_pressed()">Guess</div>
             </div>
-            <div id="testOutputRow"></div>
+
+            <div style="height:30px;"></div>
+
+            <div id="guessHolderBox" class="column" style="width:90%; gap: 5px; font-size:20px;" >
+                <div class="guessHolder" style="display:none;">
+                    <div id="defaultGuessHolderRow" class="guessHolderRow">
+                        <div class="statNameHolder" style="white-space:nowrap; margin-left: 5px; margin-right: 3px; width: 173px; text-align: left;">Deadly Rating..</div>
+                        <div class="guessHolderSkulls" style="display:flex; justify-content:left; gap:5px; width:200px; height:100%; margin-right:10px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height:5px"></div>
+
+            <div id="noGuessHolderBox" class="column" style="width:90%; gap: 5px; font-size:20px;" >
+                <div id="defaultNoGuessHolder" class="noGuessHolder"></div>
+            </div>
+
         </div>
     </div>
 

@@ -1,0 +1,9 @@
+hippopotamus,5,4,4,5;
+poison dart frog,1,2,5,5;
+adder,2,4,3,3;
+african fish eagle,4,4,4,5;
+african hunting dog,3,3,4,5;
+african killer bees,1,2,5,3;
+alligator,4,5,5,5;
+alligator gar,4,4,5,4;
+alligator snapping turtle,5,3,5,5;

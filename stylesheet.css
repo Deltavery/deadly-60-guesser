@@ -14,14 +14,20 @@ body {
     background-size: cover;
     */
     background-color: chocolate;
+    color: black;
     text-align: center;
-    font-size: 35px;
+    font-size: 25px;
     font-family: DeadlyFont;
 }
 
 .row {
     display: flex;
     justify-content: center;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
 }
 
 .height-100{
@@ -36,11 +42,11 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 /* The buttons made out of a div with an onclick */
 .divButton {
-    color: white;
     text-align: center;
     margin-left: 2%;
     padding: 1%;
@@ -54,12 +60,60 @@ body {
 
 /* The effect when said buttons are being hovered over */
 .divButton:hover {
-    background-color: white;
-    color: #050E11;
+    background-color: chocolate;
 }
 
-/* Applied to divButton when it is currently selected */
-.activeButton {
-    background-color: #1F5567;
-    color: #050E11;
+.thickOutline{
+    color: white;
+    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+}
+
+
+#defaultNoGuessHolder{
+    display:none;
+}
+
+#defaultGuessHolderRow{
+    display: none;
+}
+
+.noGuessHolder{
+    background-color: chocolate;
+    height: 40px;
+    line-height: 40px;
+    outline-style: dotted;
+    outline-color: black;
+    outline-width: 2px;
+    border-radius: 0.2em;
+    text-align: center;
+}
+
+
+.guessHolder{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background-color: orange;
+    outline-style: solid;
+    outline-color: black;
+    outline-width: 2px;
+    border-radius: 0.2em;   
+}
+
+.guessHolderRow{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    line-height: 40px;
+}
+
+.guessSkull{
+    height: 100%;
+
+}
+
+.guessTitle{
+    text-align: center;
+    text-decoration: underline;
 }

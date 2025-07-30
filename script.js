@@ -149,15 +149,18 @@ async function guess_pressed(){
         return;
     }
 
-    // if it was the last guess or correct, removes the guess option
+    // if it was the last guess or correct, replaces guess option with text
+    // otherwise updates guess count
     if (are_arrays_equal(global_correct,animal_array)){
         document.getElementById("guessRow").innerHTML = "Congratulations!";
     } else if (global_no_guess_elements.length == 1){
         document.getElementById("guessRow").innerHTML = "Out of tries...<br>The correct answer was:<br>" + global_correct[0];
+    } else {
+        // updates the guess number on the first empty guess element
+        global_no_guess_elements[0].innerHTML = "Guess " + String(2 + (6 - global_no_guess_elements.length)) + "/6";
     }
 
-    // updates the guess number on the first empty guess element
-    global_no_guess_elements[0].innerHTML = "Guess " + String(2 + (6 - global_no_guess_elements.length)) + "/6";
+    
 
     // removes an empty guess element
     global_no_guess_elements.slice(-1)[0].remove();

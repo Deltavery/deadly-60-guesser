@@ -27,6 +27,13 @@ for (let i = 0; i < 6; i++){
 }
 global_no_guess_elements[0].innerHTML = "Guess 1/6";
 
+// makes pressing enter count as guessing
+document.getElementById("guessBox").addEventListener("keyup", ({key}) => {
+    if (key === "Enter") {
+        guess_pressed();
+    }
+})
+
 setup_page();
 
 // runs upon the page loading

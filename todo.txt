@@ -5,3 +5,4 @@
 - Add animation for detailed guess changing to simplified guess
 - Figure out why its slow when you don't have auto date time set
 - Custom typing box/suggestions
+- Make suggestions work on mobile

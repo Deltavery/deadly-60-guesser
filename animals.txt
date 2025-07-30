@@ -1,5 +1,3 @@
-hippopotamus,5,4,4,5
-poison dart frog,1,2,5,5
 adder,2,4,3,3
 african fish eagle,4,4,4,5
 african hunting dog,3,3,4,5
@@ -7,3 +5,29 @@ african killer bees,1,2,5,3
 alligator,4,5,5,5
 alligator gar,4,4,5,4
 alligator snapping turtle,5,3,5,5
+american crocodile,5,4,5,5
+amphiuma,3,3,3,3
+arctic fox,2,3,3,3
+army ants,3,3,5,5
+asian elephant,4,3,5,4
+aye-aye,2,2,4,3
+baboon,3,3,4,4
+bald eagle,3,4,5,4
+barracuda,3,5,5,4
+bat swarm,5,3,4,4
+bengal tiger,5,5,5,5
+black caiman,5,4,5,5
+black eagle,3,4,5,5
+black mamba,4,4,4,5
+black piranha,4,4,5,4
+blacktip shark,3,4,5,4
+blue ringed octopus,1,2,5,4
+blue whale,5,4,3,4
+bobcat,3,4,4,4
+bottlenose dolphin,3,4,5,5
+box jellyfish,1,2,5,4
+brown bear,4,5,5,5
+buffalo,4,3,4,3
+bull shark,5,5,5,5
+bullet ant,2,2,4,3
+burrowing owl,1,2,4,3

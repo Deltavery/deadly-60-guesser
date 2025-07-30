@@ -130,6 +130,7 @@ function load_suggestions(){
 async function guess_pressed(){
 
     let guess_string = document.getElementById("guessBox").value.toLowerCase();
+    document.getElementById("guessBox").value = "";
 
     let guess_index = global_animals[0].indexOf(guess_string);
 
@@ -152,7 +153,7 @@ async function guess_pressed(){
     if (are_arrays_equal(global_correct,animal_array)){
         document.getElementById("guessRow").innerHTML = "Congratulations!";
     } else if (global_no_guess_elements.length == 1){
-        document.getElementById("guessRow").innerHTML = "Out of tries...";
+        document.getElementById("guessRow").innerHTML = "Out of tries...\nThe correct answer was:\n" + global_correct[0];
     }
 
     // updates the guess number on the first empty guess element

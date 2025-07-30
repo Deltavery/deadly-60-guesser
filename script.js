@@ -16,7 +16,7 @@ let global_guess_elements = [];
 
 let global_guesses = [];
 
-load_animal_file();
+let global_seed = 318;
 
 // Adds 6 empty guess boxes to the page
 for (let i = 0; i < 6; i++){
@@ -27,21 +27,91 @@ for (let i = 0; i < 6; i++){
 }
 global_no_guess_elements[0].innerHTML = "Guess 1/6";
 
-add_animal(["hippopotamus",5,4,4,5]);
-add_animal(["poison dart frog",1,2,5,5]);
+setup_page();
 
-load_suggestions();
+// runs upon the page loading
+async function setup_page(){
+
+    console.log("loading file");
+
+    // reads the file for animals to use in the game
+    await load_animal_file();
+
+    console.log("loading suggestions");
+
+    // loads animals into suggestions for the text box
+    load_suggestions();
+
+    console.log("getting answer");
+
+    // gets the correct answer
+    get_global_correct();
+}
 
 // loads animals from animals.txt into global_animals
 async function load_animal_file(){
 
+    // loads text file
     let response = await fetch("animals.txt");
-    let raw_text = response.text();
 
-    fetch('animals.txt').then(response => response.text()).then(text => raw_text = text);
+    console.log("first await done");
 
-    console.log(raw_text);
+    let raw_text = await response.text();
 
+    console.log("second await done");
+
+    // splits file by new lines
+    let animal_rows = raw_text.split(/\r?\n/);
+
+    // resets global_animals to empty
+    global_animals = [[],[],[],[],[]];
+
+    // pushes each animal's data to the global array
+    for (let row = 0; row < animal_rows.length; row++){
+        let animal = animal_rows[row].split(",");
+        for (let col = 0; col < animal.length; col++){
+            if (col == 0){
+                global_animals[col].push(animal[col]);
+            } else {
+                global_animals[col].push(parseInt(animal[col]));
+            }
+        }
+    }
+
+}
+
+// loads an animal into global_correct depending on the date
+// ensures that you get full cycles of all the animals before any are repeated
+function get_global_correct(){
+
+    console.log("running");
+
+    // get the amount of days since the epoch
+    let now = new Date();
+    let days_since_epoch = Math.floor(now/8.64e7);
+    
+    // amount of animals
+    let animal_count = global_animals.length;
+
+    // ensures the seed is different every time all the animals are cycled
+    let full_cycles = Math.floor(days_since_epoch/animal_count);
+    global_seed = 318318 + (3*full_cycles);
+
+    // how many days into the current cycle of animals we are
+    let cycle_pos = days_since_epoch % animal_count;
+
+    // picks a random animal
+    let animal_name_list = structuredClone(global_animals[0]);
+    animal_name_list = shuffle(animal_name_list, global_seed);
+    let correct_name = animal_name_list[cycle_pos];
+    let correct_index = global_animals[0].indexOf(correct_name);
+
+    // updates the global correct to the corresponding animal_array
+    global_correct = get_animal(correct_index);
+
+    console.log(cycle_pos);
+    console.log(full_cycles);
+    console.log(global_correct);
 
 }
 
@@ -78,11 +148,11 @@ async function guess_pressed(){
         return;
     }
 
-    global_guesses.push(animal_array);
-
     // if it was the last guess or correct, removes the guess option
-    if (global_no_guess_elements.length == 1 || are_arrays_equal(global_correct,animal_array)){
-        document.getElementById("guessRow").remove();
+    if (are_arrays_equal(global_correct,animal_array)){
+        document.getElementById("guessRow").innerHTML = "Congratulations!";
+    } else if (global_no_guess_elements.length == 1){
+        document.getElementById("guessRow").innerHTML = "Out of tries...";
     }
 
     // updates the guess number on the first empty guess element
@@ -97,7 +167,14 @@ async function guess_pressed(){
         global_guess_elements.slice(-1)[0].remove();
         global_guess_elements.pop();
     }
+
+    // adds a non-detailed guess result for the last guess, if it exists
+    if (global_guesses.length > 0){
+        display_simple_result(global_guesses.slice(-1)[0]);
+    }
     
+    // records the guess
+    global_guesses.push(animal_array);
 
     // adds the detailed guess results element
     display_guess_results(animal_array);
@@ -118,17 +195,17 @@ async function display_guess_results(animal_array){
 
     // the string that is displayed next to the rating of each stat
     let stat_names = [
-        "Size...............",
-        "Speed............",
-        "Weapons........",
-        "Deadly Rating",
+        "Size..................",
+        "Speed...............",
+        "Weapons...........",
+        "Deadly Rating...",
     ];
 
     // for each stat of the animal
     for (let i = 0; i < 4; i++){
 
+        // gets how the guess relates to the correct answer
         let correctness = "correct";
-
         if (animal_array[i+1] > global_correct[i+1]){
             correctness = "toohigh";
         } else if (animal_array[i+1] < global_correct[i+1]){
@@ -170,7 +247,72 @@ async function display_guess_results(animal_array){
         }
     }
 
+    // adds the element to the page
     document.getElementById("guessHolderBox").appendChild(new_guess_element);
+
+}
+
+// creates a simplified element to display previous guesses
+async function display_simple_result(animal_array){
+
+    // creates the box around the guess result
+    let guess_box = document.createElement("div");
+    guess_box.className = "guessHolder";
+    global_guess_elements.push(guess_box);
+
+    // adds a single row to the box
+    let guess_row = document.createElement("div");
+    guess_row.className = "guessHolderRow";
+    guess_box.appendChild(guess_row);
+
+    // adds the name of the animal to the start of the row
+    let animal_title = document.createElement("div");
+    animal_title.className = "statNameHolder";
+    guess_row.appendChild(animal_title);
+    animal_title.innerHTML = animal_array[0];
+
+    // adds the element containing the skull images to the row
+    let skull_holder = document.createElement("div");
+    skull_holder.className = "guessHolderSkulls";
+    skull_holder.style.width = "220px";
+    guess_row.appendChild(skull_holder);
+
+    // for each category
+    for (let i = 0; i < 4; i++){
+
+        // gets how the guess relates to the correct answer
+        let correctness = "correct";
+        if (animal_array[i+1] > global_correct[i+1]){
+            correctness = "toohigh";
+        } else if (animal_array[i+1] < global_correct[i+1]){
+            correctness = "toolow";
+        }
+
+        // creates the skull image
+        let new_skull = document.createElement("img");
+
+        switch (correctness){
+            case "correct":
+                new_skull.src = "green_skull.png";
+                break;
+            case "toolow":
+                new_skull.src = "yellow_skull_right.png";
+                break;
+            case "toohigh":
+                new_skull.src = "yellow_skull_left.png";
+                break;
+        }
+
+        skull_holder.appendChild(new_skull);
+
+        let skull_label = document.createElement("div");
+        skull_label.innerHTML = String(animal_array[i+1]);
+        skull_holder.appendChild(skull_label);
+
+    }
+        
+    // adds the element to the page
+    document.getElementById("guessHolderBox").appendChild(guess_box);
 
 }
 
@@ -221,4 +363,29 @@ function array_includes(array1,array2){
         } 
     }
     return included;
+}
+
+// array shuffling algo i took from stackoverflow
+function shuffle(array, global_seed) {                // <-- ADDED ARGUMENT
+  var m = array.length, t, i;
+
+  // While there remain elements to shuffle…
+  while (m) {
+
+    // Pick a remaining element…
+    i = Math.floor(random(global_seed) * m--);        // <-- MODIFIED LINE
+
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+    ++global_seed                                     // <-- ADDED LINE
+  }
+
+  return array;
+}
+
+function random(global_seed) {
+  var x = Math.sin(global_seed++) * 10000; 
+  return x - Math.floor(x);
 }

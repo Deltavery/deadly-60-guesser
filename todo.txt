@@ -1,0 +1,7 @@
+- Add photo of animal you've selected/guessed
+- Add animations where skulls appear one by one on the detailed guess
+- Add animation when you win/run out of guesses
+- Implement copy paste to share
+- Add animation for detailed guess changing to simplified guess
+- Figure out why its slow when you don't have auto date time set
+- Custom typing box/suggestions

@@ -108,6 +108,32 @@ body {
     line-height: 40px;
 }
 
+.statNameHolder{
+    white-space: nowrap;
+    margin-left: 5px;
+    margin-right: 3px;
+    /*width: 173px;*/
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 450px){
+    .statNameHolder{
+        font-size: 4vw;
+    }
+}
+
+.guessHolderSkulls{
+    display:flex;
+    justify-content:left;
+    gap:5px;
+    width:200px;
+    height:100%;
+    margin-right:10px;
+}
+
 .guessSkull{
     height: 100%;
 
